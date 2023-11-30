@@ -11,9 +11,93 @@ public class main {
 	Vector<instruction> instructions;
 	int pc;
 	int currentcycle;
+	public void next()
+	{
+		
+		for(instruction i :instructions)
+		{ 
+			if(instruction.issue==0) 
+			{   
+				issue(i);
+				if(instruction.issue!=0)
+				{
+					break;
+					
+				}
+			}
+			
+			
+		}
+		for(instruction i :instructions)
+		{ 
+			if(instruction.issue!=0) 
+			{   
+				if(instruction.execute[0]==0)
+				{ 
+					execute(i);
+					
+					if(instruction.execute[0]!=0)
+					{ 
+						break;
+					}
+					
+				}
+				
+			}
+			
+			
+		}
+
+		for(instruction i :instructions)
+		{ 
+			if(instruction.issue!=0) 
+			{   
+				if(instruction.execute[0]!=0)
+				{ 
+					
+					
+					if(instruction.writeres==0)
+					{ 
+						writeres(i);
+
+						if(instruction.writeres!=0)
+						{ 
+							break;
+						}
+					}
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	currentcycle++;
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	}
 	
 	private void execute(instruction instruction)
 	{
