@@ -1,5 +1,17 @@
 package main;
 
 public class instruction {
-// enum subs,adds,muls,divs,addi,subi,bnez,lw,sw(op) string(r1 r2 r3)   int(issue execute writeres exectime)
+   optype type;
+    String destination;
+    String source1;
+    String source2;
+    int immediate;
+
+    public instruction(optype type, String destination, String source1, String source2, int immediate) {
+        this.type = type;
+        this.destination = destination;
+        this.source1 = source1;
+        this.source2 = source2;
+        this.immediate = immediate;
+    }
 }
