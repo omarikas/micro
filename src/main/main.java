@@ -16,10 +16,10 @@ public class main {
 		
 		for(instruction i :instructions)
 		{ 
-			if(instruction.issue==0) 
+			if(i.issue==0) 
 			{   
 				issue(i);
-				if(instruction.issue!=0)
+				if(i.issue!=0)
 				{
 					break;
 					
@@ -30,13 +30,13 @@ public class main {
 		}
 		for(instruction i :instructions)
 		{ 
-			if(instruction.issue!=0) 
+			if(i.issue!=0) 
 			{   
-				if(instruction.execute[0]==0)
+				if(i.exec[0]==0)
 				{ 
 					execute(i);
 					
-					if(instruction.execute[0]!=0)
+					if(i.exec[0]!=0)
 					{ 
 						break;
 					}
@@ -50,17 +50,17 @@ public class main {
 
 		for(instruction i :instructions)
 		{ 
-			if(instruction.issue!=0) 
+			if(i.issue!=0) 
 			{   
-				if(instruction.execute[0]!=0)
+				if(i.exec[0]!=0)
 				{ 
 					
 					
-					if(instruction.writeres==0)
+					if(i.writeres==0)
 					{ 
 						writeres(i);
 
-						if(instruction.writeres!=0)
+						if(i.writeres!=0)
 						{ 
 							break;
 						}
@@ -101,10 +101,9 @@ public class main {
 	
 	private void execute(instruction instruction)
 	{
-//instruction will have have the optyp (mul,add,load...) as op r1,r2,r3 as r1,r2,r3 and issue,exectue writeresult attrbutes
-// exectute will be array of two depicting start and end cycles your job is to check wether 
-//it should execute the op or no and when it will finish using the stations and cache which will have all attributes of the normal table
-//in addition to exectime attribute		(if bnez is true set pc to to r2)
+		//htbos lw el insstruction de el issue bta3ha kan kan abl el cycle de (insturction.issue<currentcycle)
+		//lw ah htshof hya mhtaga eh fl source1 we el source 2 we shof lw dool fl cache msh mhtagen haga
+		//lw msh mhtagen htmla el execution bl current cycle we el current cycle +instruction .exectime
 
 
 		
@@ -113,11 +112,8 @@ public class main {
 	}
 	private void issue(instruction instruction)
 	{
-		//instruction will have have the optyp (// enum muls,adds,subs,divs,bnez,lw,sw) as op r1,r2,r3 as r1,r2,r3 and issue,exectue writeresult attrbutes
-		// exectute will be array of two depicting start and end cycles 
-		//your job is to use the station to check wh=ether there is an availabe statiob bassed on the op and set the issue
-		//attribute  busy to current cycle if it should be should issued
-		//
+		//switch 3al optyp we shof anhy vector of stations htbos 3leh we shof lw fe mkan fl station de
+		//be enk tdwr fl busy attribute lw fe mkan amlha bl intstruction bta3k we set el issue bl current cycle
 
 
 				
