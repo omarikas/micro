@@ -31,7 +31,7 @@ public class Gui extends JFrame {
 		lwExecTime = new JTextField();
 
 		JLabel lbswExecTime = new JLabel("swExecTime");
-		swExecTime = new JTextField();
+		swExecTime = new JTextField("swExecTime");
 
         JPanel formPanel =  new JPanel();
 		formPanel.setLayout(new GridLayout(4,1,5,5));
@@ -49,7 +49,7 @@ public class Gui extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(new Color(128,128,255));
 		mainPanel.add(formPanel,BorderLayout.NORTH);
-
+        this.add(mainPanel);
         setTitle("Welcome");
         setSize(500, 600);
         setMinimumSize(new Dimension(300, 400));
