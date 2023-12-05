@@ -8,8 +8,8 @@ public class main {
     Vector<stations> Loadstations;
 	Vector<stations> Mulstations;
 	Vector<cache> Cache;
+	Vector<Register> Registerfile;
 	Vector<instruction> instructions;
-	int pc;
 	int currentcycle;
 	public void next()
 	{
