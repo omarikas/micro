@@ -7,8 +7,9 @@ public class main {
 	Vector<stations> Addstations;
     Vector<stations> Loadstations;
 	Vector<stations> Mulstations;
-	Vector<cache> Cache;
-	Vector<Register> Registerfile;
+	Vector<Integer> Cache;
+	Vector<IntRegister> IntRegisterfile;
+	Vector<FloatRegister> FloatRegisterfile;
 	Vector<instruction> instructions;
 	int currentcycle;
 	public void next()
