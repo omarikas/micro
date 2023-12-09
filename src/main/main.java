@@ -100,27 +100,13 @@ public class main {
 	
 	}
 	
-	private void execute(instruction instruction)
-	{
-		//htbos lw el insstruction de el issue bta3ha kan kan abl el cycle de (insturction.issue<currentcycle)
-		//lw ah htshof hya mhtaga eh fl source1 we el source 2 we shof lw dool fl cache msh mhtagen haga
-		//lw msh mhtagen htmla el execution bl current cycle we el current cycle +instruction .exectime
 
-
-		
-		
+	private void issue(instruction i) {
+		// TODO Auto-generated method stub
 		
 	}
-	private void issue(instruction instruction)
-	{
-		//switch 3al optyp we shof anhy vector of stations htbos 3leh we shof lw fe mkan fl station de
-		//be enk tdwr fl busy attribute lw fe mkan amlha bl intstruction bta3k we set el issue bl current cycle
 
 
-				
-				
-				
-    }
 	private void writeres(instruction instruction)
 	{
 
@@ -169,13 +155,318 @@ public class main {
 	//h3ml variable esmo inrtuction.destination w yeb2a gowa loop el kebera
 	// String source1= instrucrtion.source1
     // h3ml nafs el haga le source 2 w el immediate			
+                                                  
+
+				
+				
 				
     }
 
 	
 	
+	private void execute(instruction instruction) {
+	    optype Type = instruction.type;
+	  
+	    
+	    switch (Type) {
+	        case adds  :
+	            executeAdd(instruction);
+	            break;
+	        case subs  :
+	            executeAdd(instruction);
+	            break;
+	        case muls:
+	            executeMultiply(instruction);
+	            break;
+	        case divs:
+	            executeMultiply(instruction);
+	            break;
+	        case lw:
+	            executeLoad(instruction);
+	            break;
+	        case sw:
+	            executeStore(instruction);
+	            break;
+	       
+	        // Other operation cases
+	        default:
+	            // Handle unsupported operations or errors
+	            break;
+	    }
+	}
+
+	private void executeStore(instruction instruction) {
+		   IntRegister r2 = null;
+		    for( IntRegister r :IntRegisterfile) {
+		    	if(r.name==instruction.destination) {
+		    		r2=r;
+		    	}
+		    }
+		    
+		    int issueCycle = instruction.issue;
+		    int[] executeCycles = instruction.exec;
+
+		    stations loadstation = null ; 
+		    for(stations s :Loadstations) {
+		    	if(!s.busy) {
+		    		loadstation=s;
+		    		break;
+		    	}
+		    }
+		   // MultiplyFunctionalUnit mulUnit = getAvailableMultiplyUnit();
+
+		   
+		        if (loadstation!=null) {
+		      if(r2.qj=="") {
+		       loadstation.instruction=instruction;
+		      instruction.exec[0]=currentcycle;
+		      instruction.exec[1]=currentcycle+instruction.exectime;
+		
+		      }
+		
+		
+		         } else {
+		            // Handle station or unit not available
+		            // Possibly stall or implement a mechanism to handle this situation
+		        }
+
+		
+	}
+
+
+	private void executeAdd(instruction instruction) {
+	   
+	    IntRegister r2 = null;
+	    for( IntRegister r :IntRegisterfile) {
+	    	if(r.name==instruction.source1) {
+	    		r2=r;
+	    	}
+	    }
+	    IntRegister r3=null;
+	    for( IntRegister r :IntRegisterfile) {
+	    	if(r.name==instruction.source1) {
+	    		r3=r;
+	    	}
+	    }
+	    int issueCycle = instruction.issue;
+	    int[] executeCycles = instruction.exec;
+
+	    stations addstation = null ; 
+	    for(stations s :Addstations) {
+	    	if(!s.busy) {
+	    		addstation=s;
+	    		break;
+	    	}
+	    }
+	   // MultiplyFunctionalUnit mulUnit = getAvailableMultiplyUnit();
+
+	   
+	        if (addstation!=null) {
+	        	 boolean readyToExecute = true;
+
+		            if (r2.qj!="") {
+		            
+		                addstation.vj=r2.value;
+		                addstation.Qj="";
+		            } else {
+		                addstation.Qj=r2.qj;
+		                readyToExecute = false;
+		            }
+
+		            if (r2.qj!="") {
+			            
+		                addstation.vj=r2.value;
+		                addstation.Qj="";
+		            } else {
+		                addstation.Qj=r2.qj;
+		                readyToExecute = false;
+		            }
+
+		            if (readyToExecute) {
+		                addstation.busy=true;
+		             
+
+		                executeCycles[0] = currentcycle;
+		                executeCycles[1] = currentcycle +instruction.exectime;
+
+
+		                instruction.exec=executeCycles;
+		               
+		            }
+   
+	         
 	
 }
+	
+	
+	
+	         } else {
+	            // Handle station or unit not available
+	            // Possibly stall or implement a mechanism to handle this situation
+	        }
+	   
+	}
+
+
+	private void executeMultiply(instruction instruction) {
+	  String r1 = instruction.destination;
+	    IntRegister r2 = null;
+	    for( IntRegister r :IntRegisterfile) {
+	    	if(r.name==instruction.source1) {
+	    		r2=r;
+	    	}
+	    }
+	    IntRegister r3=null;
+	    for( IntRegister r :IntRegisterfile) {
+	    	if(r.name==instruction.source1) {
+	    		r3=r;
+	    	}
+	    }
+	    int issueCycle = instruction.issue;
+	    int[] executeCycles = instruction.exec;
+
+	    stations mulStation = null ; 
+	    for(stations s :Mulstations) {
+	    	if(!s.busy) {
+	    		mulStation=s;
+	    		break;
+	    	}
+	    }
+	   // MultiplyFunctionalUnit mulUnit = getAvailableMultiplyUnit();
+
+	   
+	        if (mulStation!=null) {
+	            boolean readyToExecute = true;
+
+	            if (r2.qj!="") {
+	            
+	                mulStation.vj=r2.value;
+	                mulStation.Qj="";
+	            } else {
+	                mulStation.Qj=r2.qj;
+	                readyToExecute = false;
+	            }
+
+	            if (r2.qj!="") {
+		            
+	                mulStation.vj=r2.value;
+	                mulStation.Qj="";
+	            } else {
+	                mulStation.Qj=r2.qj;
+	                readyToExecute = false;
+	            }
+
+	            if (readyToExecute) {
+	                mulStation.busy=true;
+	             
+
+	                executeCycles[0] = currentcycle;
+	                executeCycles[1] = currentcycle +instruction.exectime;
+
+
+	                instruction.exec=executeCycles;
+	               
+	            }
+	        } else {
+	            // Handle resource unavailability scenarios
+	            // Implement mechanisms to handle resource conflicts or stalls
+	        }
+	   
+	}
+
+
+	private void executeLoad(instruction instruction) {
+		  
+	    IntRegister r2 = null;
+	    for( IntRegister r :IntRegisterfile) {
+	    	if(r.name==instruction.destination) {
+	    		r2=r;
+	    	}
+	    }
+	    
+	    int issueCycle = instruction.issue;
+	    int[] executeCycles = instruction.exec;
+
+	    stations loadstation = null ; 
+	    for(stations s :Loadstations) {
+	    	if(!s.busy) {
+	    		loadstation=s;
+	    		break;
+	    	}
+	    }
+	   // MultiplyFunctionalUnit mulUnit = getAvailableMultiplyUnit();
+
+	   
+	        if (loadstation!=null) {
+	       loadstation.busy=true;
+	       loadstation.instruction=instruction;
+	      instruction.exec[0]=currentcycle;
+	      instruction.exec[1]=currentcycle+instruction.exectime;
+	
+	
+	
+	
+	         } else {
+	            // Handle station or unit not available
+	            // Possibly stall or implement a mechanism to handle this situation
+	        }
+	}
+
+
+	/*private void executeBNEZ(instruction instruction) {
+	    int r2 = instruction.getOperand2();
+	    int issueCycle = instruction.getIssueCycle();
+	    int[] executeCycles = instruction.getExecute();
+
+	    BNEZReservationStation bnezStation = getAvailableBNEZStation();
+	    BNEZFunctionalUnit bnezUnit = getAvailableBNEZUnit();
+
+	    if (bnezStation != null && bnezUnit != null) {
+	        if (!bnezStation.isBusy() && bnezUnit.isFree()) {
+	            boolean readyToExecute = true;
+
+	            if (isRegisterAvailable(r2)) {
+	                int value = getValueFromRegister(r2);
+	                bnezStation.setResult(value == 0 ? 0 : 1); // Set result to 0 or 1 based on r2 value
+	                bnezStation.setQj(0);
+	            } else {
+	                bnezStation.setQj(getWaitingStationForRegister(r2));
+	                readyToExecute = false;
+	            }
+
+	            if (readyToExecute) {
+	                bnezStation.setBusy(true);
+
+	                int latencyForBNEZ = getLatencyForBNEZ();
+	                executeCycles[0] = issueCycle;
+	                executeCycles[1] = issueCycle + latencyForBNEZ;
+
+	                bnezUnit.setBusy(true);
+	                bnezUnit.setRemainingCycles(latencyForBNEZ);
+
+	                if (bnezStation.getResult() == 1) {
+	                    int targetAddress = getValueFromRegister(r2); // Assuming r2 holds the target address
+	                    setProgramCounter(targetAddress); // Set PC to the value in r2
+	                }
+
+	                instruction.setExecute(executeCycles);
+	            }
+	        } else {
+	            // Handle resource unavailability scenarios
+	            // Implement mechanisms to handle resource conflicts or stalls
+	        }
+	    } else {
+	        // Handle no available station or unit
+	        // Implement mechanisms to handle resource unavailability scenarios
+	    }
+	}
+	
+	
+	*/
+	
+	
+	
+	
 	
 	
 

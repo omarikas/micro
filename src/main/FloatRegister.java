@@ -7,7 +7,7 @@ public class FloatRegister {
 	float value;
 	String qj="";
 	public FloatRegister(float value) {
-		name="R"+number;
+		name="F"+number;
 		this.value=value;
 		number++;
 	}
